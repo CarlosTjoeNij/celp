@@ -1,6 +1,9 @@
 from data import CITIES, BUSINESSES, USERS, REVIEWS, TIPS, CHECKINS
 
 import random
+import pandas as pd
+import numpy as np
+from pandas import Series, DataFrame
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
@@ -18,3 +21,12 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     if not city:
         city = random.choice(CITIES)
     return random.sample(BUSINESSES[city], n)
+
+def eat_place(user_id=None, n=10):
+    l = []
+    for city in CITIES:
+        for business in BUSINESSES[city]:
+            if any(x in business["categories"] for x in ("Restaurants", "Bars", "Sports Bars")):
+                l.append(business["business_id"])
+    
+    return l
