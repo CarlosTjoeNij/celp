@@ -26,7 +26,8 @@ def eat_place(user_id=None, n=10):
     l = []
     for city in CITIES:
         for business in BUSINESSES[city]:
-            if any(x in business["categories"] for x in ("Restaurants", "Bars", "Sports Bars")):
-                l.append(business["business_id"])
+            for x in business["categories"] 
+                if x == "Restaurants" or "Bars" or "Sports Bars":
+                    l.append(business["business_id"])
     
     return l
