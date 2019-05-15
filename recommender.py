@@ -32,17 +32,16 @@ def eat_place(user_id=None, n=10):
     
     return l
 
-def utility(REVIEWS):
-    business_id = BUSINESSES.unique()
-    user_id = USERS.unique()
+def utilityMatrix(USERS, BUSINESSES, REVIEWS, CITIES):
+    business_id = [business["business_id"] for city in CITIES for business in BUSINESSES[city]]
+    user_id = [user["user_id"] for city in CITIES for user in USERS[city]]
 
-    utility_matrix= pd.DataFrame(np.nan, columns= user_id, index= movie_id, dtype= float)
+    matrix= pd.DataFrame(np.nan, columns= user_id, index= business_id, dtype= float)
 
-    for business in BUSINESSES:
-        for user in USERS:
-            utility_matrix.xs(business)[user]= get_reviews(CITY, business, user, n=10)
-    
-    return utility_matrix
+    for user in user_id:
+        for business in business_id:
+            matrix.loc[business][user]= get_rating(REVIEWS, user, business)
+    return matrix
 
 def cosine_similarity(matrix=utility, business1, business2):
     selected_features= matrix.loc[business1].notna() & matrix.loc[business2].notna()
