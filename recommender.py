@@ -5,6 +5,13 @@ import pandas as pd
 import numpy as np
 from pandas import Series, DataFrame
 
+# create DataFrame with business name as index, categories as value
+businessdict= {}
+for city in CITIES:
+    for business in BUSINESSES[city]:
+        businessdict[business["name"]] = business["categories"]
+pd.DataFrame.from_dict(businessdict, orient= "index")
+
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
     Returns n recommendations as a list of dicts.
@@ -31,10 +38,3 @@ def eat_place(user_id=None, n=10):
                     l.append(business["business_id"])
     
     return l
-
-def pivot_ratings(df, REVIEWS):
-    return df.pivot(values=REVIEWS["stars"], columns= REVIEWS['user_id'], index=REVIEWS["business_id"])
-
-def cosine_similarity_matrix(matrix=utilityMatrix):
-    meanCenteredMatrix= matrix - matrix.mean(axis=0)
-    return pd.DataFrame(pw.cosine_similarity(meanCenteredMatrix.fillna(0)), index= matrix.index, columns= matrix.index)
