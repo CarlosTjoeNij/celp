@@ -10,7 +10,7 @@ businessdict= {}
 for city in CITIES:
     for business in BUSINESSES[city]:
         businessdict[business["name"]] = business["categories"]
-pd.DataFrame.from_dict(businessdict, orient= "index")
+pd.DataFrame.from_dict(businessdict, orient= "index", columns=["categories"])
 
 def recommend(user_id=None, business_id=None, city=None, n=10):
     """
