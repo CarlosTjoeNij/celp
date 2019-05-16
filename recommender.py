@@ -17,7 +17,7 @@ def create_similarity_matrix_categories(matrix):
     m3 = np.minimum(m2, m2.T)
     return pd.DataFrame(m3, index = matrix.index, columns = matrix.index)
 
-def extract_genres(businesses):
+def extract_categories(businesses):
     """Create an unfolded genre dataframe. Unpacks genres seprated by a '|' into seperate rows.
     """
     cat_b = businesses.apply(lambda row: pd.Series([row['business_id']] + row['categories'].lower().split(",")), axis=1)
