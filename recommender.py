@@ -54,9 +54,9 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
 
     extracted_categories = extract_categories(df_categories)
     
-    gepivoteerde_data = pivot_ratings(extracted_categories)
+    pivoted_data = pivot_ratings(extracted_categories)
 
-    sim = create_similarity_matrix_categories(gepivoteerde_data)
+    sim = create_similarity_matrix_categories(pivoted_data)
 
 # def eat_place(user_id, n):
     
