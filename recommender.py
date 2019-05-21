@@ -45,10 +45,20 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
         sort_predicted = predicted.sort_values(by='predicted rating', ascending=False)
         for_user = sort_predicted[sort_predicted['user_id'] == user_id][:10]
 
-        # return businesses
-        return [get_business(city, i) for i in for_user['business_id']]
+        for city in CITIES:
+            count = 0
+            for review in REVIEWS[city]:
+                if review['user_id'] == user_id:
+                    count += 1
+        if count < 10:
+            city = random.choice(CITIES)
+            return random.sample(BUSINESSES[city], n)
+        else:
+            return [get_business(city, i) for i in for_user['business_id']]
+
+        
+
     else:
         city = random.choice(CITIES)
         return random.sample(BUSINESSES[city], n)
-
 
