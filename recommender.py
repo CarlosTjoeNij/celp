@@ -50,11 +50,5 @@ def recommend(user_id=None, business_id=None, city=None, n=10):
     else:
         city = random.choice(CITIES)
         return random.sample(BUSINESSES[city], n)
-# def eat_place(user_id, n):
-    
-#     for city in CITIES:
-#         for business in BUSINESSES[city]:
-#             categ = pd.Series(data=[business["categories"]])
-#             if categ.isin(["Food"]).any() or categ.isin(["Restaurants"]).any() or categ.isin(["Bars"]).any():
-#                 return BUSINESSES[business]
+
 
